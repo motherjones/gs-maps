@@ -7,23 +7,156 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
 <style>
+	@font-face {
+		font-family: 'Mallory';
+		src:  url('https://www.motherjones.com/wp-content/themes/motherjones/font/mallory/mallory-light.woff2') format('woff2'),
+		    url('https://www.motherjones.com/wp-content/themes/motherjones/font/mallory/mallory-light.woff') format('woff'),
+		    url('https://www.motherjones.com/wp-content/themes/motherjones/font/mallory/mallory-light.otf') format('opentype');
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'Mallory';
+		src:  url('https://www.motherjones.com/wp-content/themes/motherjones/font/mallory/mallory-bold.woff2') format('woff2'),
+		    url('https://www.motherjones.com/wp-content/themes/motherjones/font/mallory/mallory-bold.woff') format('woff'),
+		    url('https://www.motherjones.com/wp-content/themes/motherjones/font/mallory/mallory-bold.otf') format('opentype');
+		font-weight: bold;
+		font-style: normal;
+	}
 	body { margin: 0; padding: 0; }
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-	.marker {
-		/*background-image: url('mapbox-icon.png');
-		background-size: cover;
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		cursor: pointer;*/
-	}
 	.mapboxgl-popup-content {
 		font-family:Mallory, sans-serif;
+		border:1px solid #000;
+		padding:.5rem 1.5rem;
+		box-shadow: 0 0 10px 0 rgba(0,0,0,.333);
+	}
+	.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+		border-top-color:#000;
+		border-bottom-color:#000;
+	}
+	.marker-pin {
+		width: 50px;
+		height: 50px;
+		border-radius: 50% 50% 50% 0;
+		background: #ccc;
+		position: relative;
+		transform: rotate(-45deg);
+		/*left: 50%;
+		top: 50%;*/
+		margin: -35px 0 0 -35px;
+		box-shadow: 0 0 0 1.5px #000;
+	}
+	.marker-pin span {
+		display: block;
+		transform: rotate(45deg);
+		position: absolute;
+		font-size: 1.5rem;
+		font-weight:bold;
+		left: 38%;
+		z-index: 1;
+		top: 28%;
+	}
+	.marker-pin::after {
+		content: '';
+		width: 30px;
+		height: 30px;
+		margin: 9px 0 0 9px;
+		background: #fff;
+		position: absolute;
+		border-radius: 50%;
+		border:1px solid #000;
+	}
+	.marker-pin.rated-10 {
+		background-color:#004529;
+	}
+	.marker-pin.rated-9 {
+		background-color:#006837;
+	}
+	.marker-pin.rated-8 {
+		background-color:#238443;
+	}
+	.marker-pin.rated-7 {
+		background-color:#41ab5d;
+	}
+	.marker-pin.rated-6 {
+		background-color:#78c679;
+	}
+	.marker-pin.rated-5 {
+		background-color:#addd8e;
+	}
+	.marker-pin.rated-4 {
+		background-color:#d9f0a3;
+	}
+	.marker-pin.rated-3 {
+		background-color:#f7fcb9;
+	}
+	.marker-pin.rated-2 {
+		background-color:#ffffe5;
+	}
+	.marker-pin.rated-1 {
+		background-color:#fff;
+	}
+	.mapboxgl-popup-content h2 {
+		margin:.333rem 0 .5rem 0;
+	}
+	.mapboxgl-popup-content p {
+		margin:.5rem 0;
+	}
+
+	.filter-group {
+		font: 12px/20px 'Mallory', sans-serif;
+		font-weight: 600;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		z-index: 1;
+		border-radius: 3px;
+		width: 120px;
+		color: #fff;
+	}
+		 
+	.filter-group input[type='checkbox']:first-child + label {
+		border-radius: 3px 3px 0 0;
+	}
+		 
+	.filter-group label:last-child {
+		border-radius: 0 0 3px 3px;
+		border: none;
+	}
+		 
+	.filter-group input[type='checkbox'] {
+		display: none;
+	}
+		 
+	.filter-group input[type='checkbox'] + label {
+		background-color: #3386c0;
+		display: block;
+		cursor: pointer;
+		padding: 10px;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	}
+		 
+	.filter-group input[type='checkbox'] + label {
+		background-color: #3386c0;
+		text-transform: capitalize;
+	}
+		 
+	.filter-group input[type='checkbox'] + label:hover,
+	.filter-group input[type='checkbox']:checked + label {
+		background-color: #4ea0da;
+	}
+		 
+	.filter-group input[type='checkbox']:checked + label:before {
+		content: '✔';
+		margin-right: 5px;
 	}
 </style>
 </head>
 <body>
-<div id="map"></div>
+	<div id="map"></div>
+	<nav id="filter-group" class="filter-group"></nav>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzcGllZzR5c2hmNCJ9.tG_ytBv6NrTA1IR9R_chmA';
 
@@ -92,6 +225,38 @@ function createMap(geojson) {
 			'fill-outline-color': '#fff'
 			}
 		}, target_layer);
+
+		map.on('click', 'white-demographics', function(e) {
+			var coordinates = e.features[0].geometry.coordinates.slice();
+			// var rating = e.features[0].properties.ratings_clean;
+			// var school_name = e.features[0].properties.school_name;
+			// var scale = e.features[0].properties.gs_scale;
+			// var type = e.features[0].properties.school_type;
+			// var total = e.features[0].properties.total_students;
+			// var ratio = e.features[0].properties.students_per_teacher;
+
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			}
+			console.log(coordinates[0]);
+
+			var description = 'testing!';
+			 
+			new mapboxgl.Popup()
+			.setLngLat(coordinates[0][0])
+			.setHTML(description)
+			.addTo(map);
+		});
+		 
+		// Change the cursor to a pointer when the mouse is over the places layer.
+		map.on('mouseenter', 'white-demographics', function() {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+		 
+		// Change it back to a pointer when it leaves.
+		map.on('mouseleave', 'white-demographics', function() {
+			map.getCanvas().style.cursor = '';
+		});
 
 		// var marker = new mapboxgl.Marker()
 		// 	.setLngLat([-122.2712, 37.8044])
@@ -186,19 +351,16 @@ function createMap(geojson) {
 					var rating = e.features[0].properties.ratings_clean;
 					var school_name = e.features[0].properties.school_name;
 					var scale = e.features[0].properties.gs_scale;
-					var address = e.features[0].properties.address;
 					var type = e.features[0].properties.school_type;
 					var total = e.features[0].properties.total_students;
 					var ratio = e.features[0].properties.students_per_teacher;
 
-					var description = '<h2>' + school_name + '</h2>';
-					description += '<p>Great Schools Rating: <strong>' + rating + '</strong></p>';
-					//description += '<p>Address: ' + address + '</p>';
-					description += '<p>Type: ' + type + '</p>';
-					description += '<p>Total Students: ' + total + '</p>';
-					description += '<p>Students per Teacher: ' + ratio + '</p>';
-
-					// "rating": "NA", "ratings_clean": "NA", "gs_scale": "Currently unrated", "school_name": "Little Hands Child Care Center", "school_address": "171 12th Street, Oakland, CA, 94607", "school_type": "Private", "school_grades": "PK", "total_students": "N\/A", "students_per_teacher"
+					var description = '<div class="marker-pin rated-' + rating + '"><span>' + rating + '</span></div>';
+					description += '<h2>' + school_name + '</h2>';
+					description += '<p><strong>' + rating + '/10</strong> GreatSchools Rating</p>';
+					// description += '<p>Type: ' + type + '</p>';
+					// description += '<p>Total Students: ' + total + '</p>';
+					// description += '<p>Students per Teacher: ' + ratio + '</p>';
 					 
 					// Ensure that if the map is zoomed out such that multiple
 					// copies of the feature are visible, the popup appears
