@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Visualize population density</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzcGllZzR5c2hmNCJ9.tG_ytBv6NrTA1IR9R_chmA';
+
+var map = new mapboxgl.Map({
+	container: 'map', // container id
+	//style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
+	style: 'mapbox://styles/motherjones/cke3a002s06ie19pmwzkk8qqz',
+	center: [-71.057083, 42.32], // starting position [lng, lat]
+	zoom: 10.75 // starting zoom
+});
+
+fetch('data/boston2_clean.geojson')
+	.then(res => res.json())
+	.then(createMap)
+	.catch(e => console.error(e));
+
+function createMap(geojson) {
+	//const values = geojson.features.map(d=> +d.properties.B03002003);
+	const values = geojson.features.map(function(d){
+		const white = d.properties.B03002003;
+		const total = d.properties.B03002001;
+		var percentage = white/total;//*100;
+		return percentage;//.toFixed(2);
+	})
+	const scale = [
+		Math.min.apply(null, values.filter(function(n) { return !isNaN(n); })),
+		//'#FF6900',
+		'#cc5400',
+		Math.max.apply(null, values.filter(function(n) { return !isNaN(n); })),
+		//'#FFC107'
+		'#ffd34f'
+	]
+
+	map.on('load', function() {
+		var layers = map.getStyle().layers;
+		// Find the index of the first symbol layer in the map style
+		var target_layer = layers[4].id;
+		// for (var i = 0; i < layers.length; i++) {
+		// 	if (layers[i].type === 'symbol') {
+		// 		target_layer = layers[i].id;
+		// 		break;
+		// 	}
+		// }
+		map.addSource('white-demographics', {
+			'type': 'geojson',
+			//'data': 'data/acs2018_5yr_B03002_01000US.geojson'
+			'data': 'data/boston2_clean.geojson'
+		});
+
+		map.addLayer({
+			'id': 'white-demographics',
+			'type': 'fill',
+			'source': 'white-demographics',
+			'layout': {},
+			'paint': {
+			'fill-color':  
+				[
+					'interpolate',
+					['linear'],
+					['/', ['get', 'B03002003'], ['get', 'B03002001']],
+					//['get', 'B03002003'],
+					//['get', 'B03002003']/['get', 'B03002001']*100,
+					...scale
+				],
+			//'fill-color': '#000',
+			'fill-outline-color': '#fff',
+			'fill-opacity': 1
+			}
+		}, target_layer);
+
+
+		map.loadImage(
+			'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+			function(error, image) {
+				if (error) throw error;
+				map.addImage('custom-marker', image);
+				// Add a GeoJSON source with 2 points
+
+				map.addSource('schools', {
+					'type': 'geojson',
+					//'data': 'data/acs2018_5yr_B03002_01000US.geojson'
+					'data': 'data/boston_gs_geojson.geojson'
+				});
+
+				map.addLayer({
+					'id': 'schools',
+					'type': 'circle',
+					'source': 'schools',
+					'paint': {
+						// make circles larger as the user zooms from z12 to z22
+						'circle-radius': {
+							'base': 4.5,
+							'stops': [
+								[10.75, 4.5],
+								[14, 11],
+								[18, 60],
+								[22, 180]
+							]
+						},
+						// color circles by score, using a match expression
+						// https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+						'circle-color': [
+							'match',
+							['get', 'gs_ratings'],
+							'10',
+							'#004529',
+							'9',
+							'#006837',
+							'8',
+							'#238443',
+							'7',
+							'#41ab5d',
+							'6',
+							'#78c679',
+							'5',
+							'#addd8e',
+							'4',
+							'#d9f0a3',
+							'3',
+							'#f7fcb9',
+							'2',
+							'#ffffe5',
+							'1',
+							'#fff',
+							/* other */ '#ddd'
+						],
+					    'circle-stroke-width': 1,
+					    'circle-stroke-color': '#000'
+					}
+				});
+
+				// map.addLayer({
+				// 	'id': 'school_marker',
+				// 	'type': 'symbol',
+				// 	'source': 'schools',
+				// 	'layout': {
+				// 		'icon-image': 'custom-marker',
+				// 		// get the title name from the source's "title" property
+				// 		'text-field': ['get', 'ratings_clean'],
+				// 		'text-font': [
+				// 			'Open Sans Semibold',
+				// 			'Arial Unicode MS Bold'
+				// 		],
+				// 		'text-offset': [0, 1.25],
+				// 		'text-anchor': 'top'
+				// 	}
+				// });
+			}
+		);
+	});
+}
+
+
+
+
+</script>
+ 
+</body>
+</html>
