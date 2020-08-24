@@ -17,6 +17,9 @@
 		border-radius: 50%;
 		cursor: pointer;*/
 	}
+	.mapboxgl-popup-content {
+		font-family:Mallory, sans-serif;
+	}
 </style>
 </head>
 <body>
@@ -27,7 +30,7 @@
 var map = new mapboxgl.Map({
 	container: 'map', // container id
 	//style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
-	style: 'mapbox://styles/motherjones/cke3a002s06ie19pmwzkk8qqz',
+	style: 'mapbox://styles/motherjones/cke841yfj4pay19jv8ija86ms',
 	center: [-122.2712, 37.8044], // starting position [lng, lat]
 	zoom: 10.75 // starting zoom
 });
@@ -180,7 +183,22 @@ function createMap(geojson) {
 				// location of the feature, with description HTML from its properties.
 				map.on('click', 'schools', function(e) {
 					var coordinates = e.features[0].geometry.coordinates.slice();
-					var description = e.features[0].properties.ratings_clean;
+					var rating = e.features[0].properties.ratings_clean;
+					var school_name = e.features[0].properties.school_name;
+					var scale = e.features[0].properties.gs_scale;
+					var address = e.features[0].properties.address;
+					var type = e.features[0].properties.school_type;
+					var total = e.features[0].properties.total_students;
+					var ratio = e.features[0].properties.students_per_teacher;
+
+					var description = '<h2>' + school_name + '</h2>';
+					description += '<p>Great Schools Rating: <strong>' + rating + '</strong></p>';
+					//description += '<p>Address: ' + address + '</p>';
+					description += '<p>Type: ' + type + '</p>';
+					description += '<p>Total Students: ' + total + '</p>';
+					description += '<p>Students per Teacher: ' + ratio + '</p>';
+
+					// "rating": "NA", "ratings_clean": "NA", "gs_scale": "Currently unrated", "school_name": "Little Hands Child Care Center", "school_address": "171 12th Street, Oakland, CA, 94607", "school_type": "Private", "school_grades": "PK", "total_students": "N\/A", "students_per_teacher"
 					 
 					// Ensure that if the map is zoomed out such that multiple
 					// copies of the feature are visible, the popup appears
