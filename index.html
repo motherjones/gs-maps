@@ -185,19 +185,29 @@
 	}
 
 	#filter-group-2 h4 {
-		padding:.55rem;
+		padding:.55rem .55rem .25rem .55rem;
 		margin:0;
 		font-size:1.125rem;
 		background-color:#fff;
 		border-top-left-radius: 3px;
 		border-top-right-radius: 3px;
+	}
+
+	#filter-group-2 .instructions {
+		font-weight:normal;
+		font-size:.7rem;
+		text-transform: uppercase;
+		min-width:100%;
+		display:block;
+		padding:0 .55rem .3rem .55rem;
+		background-color:#fff;
 		border-bottom:1px solid #999;
 	}
 
 	#demo {
 		width:220px;
 		position:absolute;
-		top:184px;
+		top:204px;
 		right:10px;
 		background-color:#fff;
 		padding:1rem;
@@ -242,6 +252,7 @@
 
 	<nav id="filter-group-2" class="filter-group">
 		<h4>GreatSchools Ratings</h4>
+		<span class="instructions">Filter by group</span>
 		<input type="checkbox" id="rated-7-9" checked><label for="rated-7-9"><span class="color-box rated-7"></span><span class="color-box rated-8"></span><span class="color-box rated-9"></span>&nbsp; High (7-9)</label>
 
 		<input type="checkbox" id="rated-4-6" checked><label for="rated-4-6"><span class="color-box rated-4"></span><span class="color-box rated-5"></span><span class="color-box rated-6"></span>&nbsp; Middle (4-6)</label>
@@ -251,9 +262,10 @@
 
 	<nav id="demo" class="filter-group">
 		<h6>Racial Demographics</h6>
+		<span>% White</span>
 		<div id="gradient"></div>
-		<span>Less White</span>
-		<span>More White</span>
+		<span class="left"></span>
+		<span class="right"></span>
 	</nav>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzcGllZzR5c2hmNCJ9.tG_ytBv6NrTA1IR9R_chmA';
@@ -290,10 +302,18 @@ function createMap(geojson) {
 		'#ffd34f'
 	]
 
+	var legend = document.getElementById('demo');
+	var left = legend.querySelector('.left');
+	var right = legend.querySelector('.right');
+
+	left.textContent = (scale[0]*100).toFixed(1);
+	right.textContent = (scale[2]*100).toFixed(1);
+
 	map.on('load', function() {
 		var layers = map.getStyle().layers;
 		// Find the index of the first symbol layer in the map style
 		var target_layer = layers[4].id;
+		var target_layer_points = layers[42].id;
 		// for (var i = 0; i < layers.length; i++) {
 		// 	if (layers[i].type === 'symbol') {
 		// 		target_layer = layers[i].id;
@@ -499,9 +519,6 @@ function createMap(geojson) {
 { "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Vincent Academy", "school_address": "2501 Chestnut Street, Oakland, CA, 94607", "school_type": "Public charter", "school_grades": "K-5", "total_students": "242", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.818122, "Longitude": -122.282197, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2501, "Street": "Chestnut St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.282197, 37.818122 ] } }
 ]
 };
-
-
-		var popup = new mapboxgl.Popup();
 			
 
 		schools.features.forEach(function(feature) {
@@ -557,7 +574,7 @@ function createMap(geojson) {
 					    'circle-stroke-color': '#000'
 					},
 					'filter': ['==', 'ratings_clean', rating]
-				});
+				}, target_layer_points);
 				 
 				// Add checkbox and label elements for the layer.
 				var input = document.createElement('input');
@@ -585,18 +602,21 @@ function createMap(geojson) {
 						e.target.checked ? 'visible' : 'none'
 					);
 				});
+
+				var popup = new mapboxgl.Popup();
+				handlePopup(layerID, popup);
+				handleMouseEnter(layerID);
+				handleMouseLeave(layerID);
 			}
 
-			handlePopup(layerID);
-			handleMouseEnter(layerID);
-			handleMouseLeave(layerID);
 
 		});
 		
 
-		function handlePopup(layerID) {
+		function handlePopup(layerID, popup) {
 			// When a click event occurs on a feature in the places layer, open a popup at the
 			// location of the feature, with description HTML from its properties.
+			
 			map.on('click', layerID, function(e) {
 				var coordinates = e.features[0].geometry.coordinates.slice();
 				var rating = e.features[0].properties.ratings_clean;
@@ -619,7 +639,8 @@ function createMap(geojson) {
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
 				}
-				
+
+
 				popup
 					.setLngLat(coordinates)
 					.setHTML(description)
