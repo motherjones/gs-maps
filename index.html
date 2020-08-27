@@ -37,11 +37,34 @@
 		transform: translateX(calc(50% - 35px));
 	}
 	.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
-	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
-	.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
-	.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{
 		border-top-color:#000;
 		border-bottom-color:#000;
+	}
+	.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+		border-left-color:#000;
+		border-right-color:#000;
+	}
+	.mapboxgl-popup-anchor-top .mapboxgl-popup-content {
+		transform:translateX(calc(50% - 60px));
+	}
+	.mapboxgl-popup-anchor-left .mapboxgl-popup-content,
+	.mapboxgl-popup-anchor-right .mapboxgl-popup-content {
+		transform:none;
+	}
+
+	.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip  {
+		display:none;
+	}
+	.mapboxgl-popup-anchor-top-left .mapboxgl-popup-content,
+	.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-content,
+	.mapboxgl-popup-anchor-top-right .mapboxgl-popup-content,
+	.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-content  {
+		transform:none;
 	}
 	.marker-pin {
 		width: 50px;
@@ -233,6 +256,7 @@
 		background: linear-gradient(to right,  #cc5400 0%,#ffd34f 100%);
 		border:1px solid #333;
 		border-radius:3px;
+		opacity:.8;
 	}
 
 	#demo span {
@@ -270,7 +294,7 @@
 	<nav id="demo" class="filter-group">
 		<h6>Racial Demographics</h6>
 		<span>% White</span>
-		<div id="gradient"></div>
+		<div style="background-color:#ccc"><div id="gradient"></div></div>
 		<span class="left"></span>
 		<span class="right"></span>
 	</nav>
@@ -284,7 +308,9 @@ var map = new mapboxgl.Map({
 	//style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
 	style: 'mapbox://styles/motherjones/cke841yfj4pay19jv8ija86ms',
 	center: [-122.2712, 37.8044], // starting position [lng, lat]
-	zoom: 10.75 // starting zoom
+	zoom: 10.75, // starting zoom,
+	minZoom: 10.5,
+	maxZoom: 16
 });
 
 fetch('data/oakland_white_demographics.geojson')
@@ -539,7 +565,7 @@ function createMap(geojson) {
 		schools.features.forEach(function(feature) {
 			// Zoom map to markers
 			bounds.extend(feature.geometry.coordinates);
-			map.fitBounds(bounds, { padding: 120 });
+			map.fitBounds(bounds, { padding: 120, offset: [-10,0] });
 
 			var rating = feature.properties['ratings_clean'];
 			var layerID = 'rated-' + rating;
@@ -553,12 +579,16 @@ function createMap(geojson) {
 					'paint': {
 						// make circles larger as the user zooms from z12 to z22
 						'circle-radius': {
-							'base': 4.5,
+							//'base': 20,
 							'stops': [
-								[10.75, 4.5],
-								[14, 20],
-								[18, 60],
-								[22, 180]
+								[8, 1],
+								[9, 2],
+								[10, 4],
+								[11, 8],
+								[12, 16]
+								//[14, 20],
+								// [18, 60],
+								// [22, 180]
 							]
 						},
 						// color circles by score, using a match expression
@@ -589,7 +619,7 @@ function createMap(geojson) {
 							/* other */ '#ddd'
 						],
 						//'circle-opacity': 0,
-					    'circle-stroke-width': 1,
+					    'circle-stroke-width': 1.25,
 					    'circle-stroke-color': '#000'
 					},
 					'filter': ['==', 'ratings_clean', rating]
