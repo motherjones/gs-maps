@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Oakland GreatSchools</title>
+<title>Somerville GreatSchools</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -327,12 +327,12 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzcGllZzR5c2hmNCJ9.tG_ytBv6NrTA1IR9R_chmA'; 
 
 // config
-const data_census	= 'data/oakland_white_demographics.geojson';
-const data_schools	= 'data/great_schools_oakland_rated.geojson';
-const coords		= [-122.2712, 37.8044];
-const rating_prop	= 'ratings_clean';
+const data_census	= 'data/Somerville.geojson';
+const data_schools	= 'data/Somerville_gs_ratings.geojson';
+const coords		= [-71.0995, 42.3876];
+const rating_prop	= 'rating';
 const map_padding	= 120;
-const map_offset	= [-10,0];
+const map_offset	= [-20,0];
 
 // add a new mapbox base layer
 let map = new mapboxgl.Map({
