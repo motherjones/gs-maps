@@ -136,11 +136,9 @@
 		line-height:1.2;
 		margin:.5rem 0;
 	}
-
 	#filter-group {
 		display:none;
 	}
-
 	.filter-group {
 		font: 12px/20px 'Mallory', sans-serif;
 		font-weight: 600;
@@ -153,35 +151,30 @@
 		box-shadow: 0 0 10px 0 rgba(0,0,0,.333);
 		width: 120px;
 		color: #000;
-	}
-		 
+	}		 
 	.filter-group input[type='checkbox']:first-child + label {
 		border-radius: 3px 3px 0 0;
-	}
-		 
+	}		 
 	.filter-group label:last-child {
 		border-radius: 0 0 3px 3px;
 		border: none;
-	}
-		 
+	}		 
 	.filter-group input[type='checkbox'] {
 		display: none;
-	}
-		 
+	}		 
 	.filter-group input[type='checkbox'] + label {
 		background-color: #fff;
 		display: block;
 		cursor: pointer;
 		padding: 10px;
 		border-bottom: 1px solid #999;
-	}
-		 
+	}		 
 	.filter-group input[type='checkbox'] + label {
 		background-color: #ccc;
 		text-transform: capitalize;
 		color: #999;
 	}
-	.filter-group input[type='checkbox'] + label span.color-box {
+	.filter-group input[type='checkbox'] + label span.color-key {
 		opacity:.5;
 	}
 
@@ -189,16 +182,13 @@
 		background-color:#fff;
 		color:#000;
 	}
-
-	.filter-group input[type='checkbox']:checked + label span.color-box {
+	.filter-group input[type='checkbox']:checked + label span.color-key {
 		opacity:1;
-	}
-		 
+	}		 
 	.filter-group input[type='checkbox'] + label:hover {
 		background-color: #ffe599;
 	}
-
-	span.color-box {
+	span.color-key {
 		display: block;
 		border: 1px solid black;
 		width: 14px;
@@ -207,14 +197,12 @@
 		margin: .25rem .25rem 0 0;
 		border-radius:50%;
 	}
-
-	#filter-group-2 {
+	#multi-filter-group {
 		width:220px;
 		font-size:1rem;
 		font-weight:normal;
 	}
-
-	#filter-group-2 h4 {
+	#multi-filter-group h4 {
 		padding:.55rem .55rem .25rem .55rem;
 		margin:0;
 		font-size:1.125rem;
@@ -222,8 +210,7 @@
 		border-top-left-radius: 3px;
 		border-top-right-radius: 3px;
 	}
-
-	#filter-group-2 .instructions {
+	#multi-filter-group .instructions {
 		font-weight:normal;
 		font-size:.7rem;
 		text-transform: uppercase;
@@ -233,7 +220,6 @@
 		background-color:#fff;
 		border-bottom:1px solid #999;
 	}
-
 	#demo {
 		width:220px;
 		position:absolute;
@@ -242,12 +228,10 @@
 		background-color:#fff;
 		padding:.55rem;
 	}
-
 	#demo h6 {
 		font-size:1rem;
 		margin:0 0 .25rem 0;
 	}
-
 	#gradient {
 		width:100%;
 		height:14px;
@@ -258,7 +242,6 @@
 		border-radius:3px;
 		opacity:.8;
 	}
-
 	#demo span {
 		font-weight:normal;
 		font-size:.7rem;
@@ -266,534 +249,364 @@
 		min-width:49%;
 		display:inline-block;
 	}
-
 	#demo span:last-of-type {
 		text-align:right;
 	}
-		 
-	/*.filter-group input[type='checkbox']:checked + label:before {
-		content: '✔';
-		margin-right: 5px;
-	}*/
+	@media screen and (max-width: 768px){
+		.filter-group {
+			min-width:90%;
+			bottom: 120px;
+    		left: 5%;
+    		top: auto;
+    		background-color:#fff;
+		}
+		.filter-group input[type='checkbox'] + label {
+			border-bottom:none;
+			border-top: 4px solid #fff;
+			background-color:transparent;
+			float:left;
+			display: flex;
+			flex-wrap:wrap;
+			width:33.33%;
+			font-size:.8rem;
+		}
+		.filter-group input[type='checkbox'] + label:hover {
+		    border-top: 4px solid #ffe599;
+		    background-color:transparent;
+		}
+		.filter-group label .keys,
+		.filter-group label .label {
+			width:100%;
+			text-align: center;
+		}
+		span.color-key {
+			float:none;
+			display:inline-block;
+		}
+		#demo {
+			width:90%;
+			bottom: 30px;
+    		left: 5%;
+    		top: auto;
+    		display: flex;
+		}
+		#demo>div:last-of-type {
+			width:75%;
+			padding-left:.5rem;
+		}
+	}
 </style>
 </head>
 <body>
 	<div id="map"></div>
 	<nav id="filter-group" class="filter-group"></nav>
 
-	<nav id="filter-group-2" class="filter-group">
+	<nav id="multi-filter-group" class="filter-group">
 		<h4>GreatSchools Ratings</h4>
-		<span class="instructions">Filter by group</span>
-		<input type="checkbox" id="rated-7-9" checked><label for="rated-7-9"><span class="color-box rated-7"></span><span class="color-box rated-8"></span><span class="color-box rated-9"></span>&nbsp; High (7-9)</label>
+		<span class="instructions">Toggle by group</span>
+		<input type="checkbox" id="rated-7-9" checked><label for="rated-7-9"><span class="keys"><span class="color-key rated-7"></span><span class="color-key rated-8"></span><span class="color-key rated-9"></span></span><span class="label">&nbsp; High (7-9)</span></label>
 
-		<input type="checkbox" id="rated-4-6" checked><label for="rated-4-6"><span class="color-box rated-4"></span><span class="color-box rated-5"></span><span class="color-box rated-6"></span>&nbsp; Middle (4-6)</label>
+		<input type="checkbox" id="rated-4-6" checked><label for="rated-4-6"><span class="keys"><span class="color-key rated-4"></span><span class="color-key rated-5"></span><span class="color-key rated-6"></span></span><span class="label">&nbsp; Middle (4-6)</span></label>
 
-		<input type="checkbox" id="rated-1-3" checked><label for="rated-1-3"><span class="color-box rated-1"></span><span class="color-box rated-2"></span><span class="color-box rated-3"></span>&nbsp; Low (1-3)</label>
+		<input type="checkbox" id="rated-1-3" checked><label for="rated-1-3"><span class="keys"><span class="color-key rated-1"></span><span class="color-key rated-2"></span><span class="color-key rated-3"></span></span><span class="label">&nbsp; Low (1-3)</span></label>
 	</nav>
 
 	<nav id="demo" class="filter-group">
-		<h6>Racial Demographics</h6>
-		<span>% White</span>
-		<div style="background-color:#ccc"><div id="gradient"></div></div>
-		<span class="left"></span>
-		<span class="right"></span>
+		<div>
+			<h6>Racial Demographics</h6>
+		</div>
+		<div>
+			<span>% White</span>
+			<div style="background-color:#ccc"><div id="gradient"></div></div>
+			<span class="left"></span>
+			<span class="right"></span>
+		</div>
 	</nav>
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzcGllZzR5c2hmNCJ9.tG_ytBv6NrTA1IR9R_chmA';
+// https://account.mapbox.com/access-tokens/
+mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzcGllZzR5c2hmNCJ9.tG_ytBv6NrTA1IR9R_chmA'; 
 
-var filterGroup = document.getElementById('filter-group');
+// config
+const data_census	= 'data/oakland_white_demographics.geojson';
+const data_schools	= 'data/great_schools_oakland_rated.geojson';
+const coords		= [-122.2712, 37.8044];
 
-var map = new mapboxgl.Map({
+// add a new mapbox base layer
+let map = new mapboxgl.Map({
 	container: 'map', // container id
-	//style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
-	style: 'mapbox://styles/motherjones/cke841yfj4pay19jv8ija86ms',
-	center: [-122.2712, 37.8044], // starting position [lng, lat]
-	zoom: 10.75, // starting zoom,
+	style: 'mapbox://styles/motherjones/cke841yfj4pay19jv8ija86ms', // mapbox studio
+	center: coords, // starting position [lng, lat]
 	minZoom: 10.5,
 	maxZoom: 16
 });
 
-fetch('data/oakland_white_demographics.geojson')
+// fetch the demographic data separately so you can access it outside of mapbox
+// then use it to create the map
+fetch(data_census)
 	.then(res => res.json())
 	.then(createMap)
 	.catch(e => console.error(e));
 
-function createMap(geojson) {
-	//const values = geojson.features.map(d=> +d.properties.B03002003);
-	const values = geojson.features.map(function(d){
+function createMap(census_tracts) {
+	// calculate % white for each census tract
+	const values = census_tracts.features.map(function(d){
 		const white = d.properties.B03002003;
 		const total = d.properties.B03002001;
-		var percentage = white/total;//*100;
-		return percentage;//.toFixed(2);
+		let percentage = white/total;
+		return percentage;
 	})
+
+	// generate a gradient scale for for the choropleth 
+	// skip NaN values from divide-by-zero errors
 	const scale = [
 		Math.min.apply(null, values.filter(function(n) { return !isNaN(n); })),
-		//'#FF6900',
 		'#cc5400',
 		Math.max.apply(null, values.filter(function(n) { return !isNaN(n); })),
-		//'#FFC107'
 		'#ffd34f'
 	]
 
-	var legend = document.getElementById('demo');
-	var left = legend.querySelector('.left');
-	var right = legend.querySelector('.right');
+	// update legend labels based on new scale values
+	const legend = document.getElementById('demo');
+	const left = legend.querySelector('.left');
+	const right = legend.querySelector('.right');
 
 	left.textContent = (scale[0]*100).toFixed(1);
 	right.textContent = (scale[2]*100).toFixed(1);
 
+	// after the map is loaded, add our custom layers
 	map.on('load', function() {
-		var layers = map.getStyle().layers;
-		// Find the index of the first symbol layer in the map style
-		var target_layer = layers[4].id;
-		var target_layer_points = layers[42].id;
-		// for (var i = 0; i < layers.length; i++) {
-		// 	if (layers[i].type === 'symbol') {
-		// 		target_layer = layers[i].id;
-		// 		break;
-		// 	}
-		// }
-		map.addSource('white-demographics', {
+
+		// add the source for census tract demographics to mapbox
+		map.addSource('tracts', {
 			'type': 'geojson',
-			//'data': 'data/acs2018_5yr_B03002_01000US.geojson'
-			'data': 'data/oakland_white_demographics.geojson'
+			'data': census_tracts //result of fetch
 		});
 
+		const layers = map.getStyle().layers;
+		const target_layer_tracts = layers[4].id; // place choropleth below street layer and labels
+		const target_layer_schools = layers[42].id; // place points below city name labels
+
+		// add the census tract layer to the map
 		map.addLayer({
-			'id': 'white-demographics',
+			'id': 'tracts',
 			'type': 'fill',
-			'source': 'white-demographics',
+			'source': 'tracts',
 			'layout': {},
 			'paint': {
-			'fill-color':  
-				[
-					'interpolate',
-					['linear'],
-					['/', ['get', 'B03002003'], ['get', 'B03002001']],
-					//['get', 'B03002003'],
-					//['get', 'B03002003']/['get', 'B03002001']*100,
-					...scale
-				],
-			'fill-opacity': .8,
-			'fill-outline-color': '#fff'
+				'fill-color':  
+					[
+						'interpolate',
+						['linear'],
+						['/', ['get', 'B03002003'], ['get', 'B03002001']],
+						...scale
+					],
+				'fill-opacity': .8,
+				'fill-outline-color': '#fff'
 			}
-		}, target_layer);
+		}, target_layer_tracts);
 
-
-		var polygon_data = '';
-		map.on('click', 'white-demographics', function(e) {
+		// save this data to use in popups
+		let polygon_data = '';
+		map.on('click', 'tracts', function(e) {
 			polygon_data = e.features[0].properties;
-			console.log(polygon_data);
 		});
 
-		// map.on('click', 'white-demographics', function(e) {
-		// 	var coordinates = e.features[0].geometry.coordinates.slice();
-		// 	// var rating = e.features[0].properties.ratings_clean;
-		// 	// var school_name = e.features[0].properties.school_name;
-		// 	// var scale = e.features[0].properties.gs_scale;
-		// 	// var type = e.features[0].properties.school_type;
-		// 	// var total = e.features[0].properties.total_students;
-		// 	// var ratio = e.features[0].properties.students_per_teacher;
+		// save boundaries for resize events
+		let bounds = new mapboxgl.LngLatBounds();
 
-		// 	while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-		// 		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-		// 	}
-		// 	console.log(coordinates[0]);
+		// fetch the school data, then add it to the map
+		fetch(data_schools)
+			.then(res => res.json())
+			.then(addSchools)
+			.catch(e => console.error(e));
 
-		// 	var description = 'testing!';
-			 
-		// 	new mapboxgl.Popup()
-		// 	.setLngLat(coordinates[0][0])
-		// 	.setHTML(description)
-		// 	.addTo(map);
-		// });
-		 
-		// // Change the cursor to a pointer when the mouse is over the places layer.
-		// map.on('mouseenter', 'white-demographics', function() {
-		// 	map.getCanvas().style.cursor = 'pointer';
-		// });
-		 
-		// // Change it back to a pointer when it leaves.
-		// map.on('mouseleave', 'white-demographics', function() {
-		// 	map.getCanvas().style.cursor = '';
-		// });
+		function addSchools(schools) {
 
+			map.addSource('schools', {
+				'type': 'geojson',
+				'data': schools // result of fetch
+			});
+			const filter_group = document.getElementById('filter-group'); // part of legend/key
 
+			// loop through schools and add layers
+			schools.features.forEach(function(feature) {
+				// zoom map to markers
+				bounds.extend(feature.geometry.coordinates);
+				setBounds();
 
-
-
-
-
-		map.addSource('schools', {
-			'type': 'geojson',
-			'data': 'data/great_schools_oakland_rated.geojson'
-		});
-
-		var schools = {
-"type": "FeatureCollection",
-"name": "great_schools_oakland_geojson",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Chabot Elementary School", "school_address": "6686 Chabot Road, Oakland, CA, 94618", "school_type": "Public district", "school_grades": "K-5", "total_students": "580", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.850071, "Longitude": -122.242799, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 6686, "Street": "Chabot Rd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94618, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.242799, 37.850071 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Crocker Highlands Elementary School", "school_address": "525 Midcrest Road, Oakland, CA, 94610", "school_type": "Public district", "school_grades": "K-5", "total_students": "466", "students_per_teacher": "28:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.811103, "Longitude": -122.227587, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 525, "Street": "Midcrest Rd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94610, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.227587, 37.811103 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Hillcrest Elementary School", "school_address": "30 Marguerite Drive, Oakland, CA, 94618", "school_type": "Public district", "school_grades": "K-8", "total_students": "388", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.840576, "Longitude": -122.232409, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 30, "Street": "Marguerite Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94618, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.232409, 37.840576 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Montclair Elementary School", "school_address": "1757 Mountain Boulevard, Oakland, CA, 94611", "school_type": "Public district", "school_grades": "K-5", "total_students": "640", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.830269, "Longitude": -122.211867, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1757, "Street": "Mountain Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94611, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.211867, 37.830269 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Peralta Elementary School", "school_address": "460 63rd Street, Oakland, CA, 94609", "school_type": "Public district", "school_grades": "K-5", "total_students": "331", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.849687, "Longitude": -122.258845, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 460, "Street": "63rd St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94609, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.258845, 37.849687 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Thornhill Elementary School", "school_address": "5880 Thornhill Drive, Oakland, CA, 94611", "school_type": "Public district", "school_grades": "K-5", "total_students": "410", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.836251, "Longitude": -122.211458, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 5880, "Street": "Thornhill Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94611, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.211458, 37.836251 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "Yu Ming Charter School", "school_address": "1086 Alcatraz Avenue, Oakland, CA, 94608", "school_type": "Public charter", "school_grades": "K-8", "total_students": "445", "students_per_teacher": "N\/A", "school_district": "Alameda County Office of Education", "Latitude": 37.847375, "Longitude": -122.283621, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1086, "Street": "Alcatraz Ave", "Unit Type": null, "Unit Number": null, "City": "Emeryville", "State": "CA", "County": "Alameda County", "Zip": 94608, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.283621, 37.847375 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Sep", "ratings_clean": "9", "gs_scale": "Above average", "school_name": "American Indian Public Charter School Ii", "school_address": "171 12th Street, Oakland, CA, 94607", "school_type": "Public charter", "school_grades": "K-8", "total_students": "794", "students_per_teacher": "19:01", "school_district": "Oakland Unified School District", "Latitude": 37.800101, "Longitude": -122.265497, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 171, "Street": "12th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.265497, 37.800101 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Aug", "ratings_clean": "8", "gs_scale": "Above average", "school_name": "Kaiser Elementary School", "school_address": "25 South Hill Court, Oakland, CA, 94618", "school_type": "Public district", "school_grades": "K-5", "total_students": "268", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.852708, "Longitude": -122.231227, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 25, "Street": "S Hill Ct", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94618, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.231227, 37.852708 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Aug", "ratings_clean": "8", "gs_scale": "Above average", "school_name": "Lincoln Elementary School", "school_address": "225 11th St, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "K-5", "total_students": "750", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.800023, "Longitude": -122.267151, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 225, "Street": "11th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.267151, 37.800023 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Aug", "ratings_clean": "8", "gs_scale": "Above average", "school_name": "Downtown Charter Academy", "school_address": "2000 Dennison Street, Oakland, CA, 94606", "school_type": "Public charter", "school_grades": "8-Jun", "total_students": "305", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.779565, "Longitude": -122.241663, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2000, "Street": "Dennison St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.241663, 37.779565 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Aug", "ratings_clean": "8", "gs_scale": "Above average", "school_name": "Oakland School for the Arts", "school_address": "530 18th Street, Oakland, CA, 94612", "school_type": "Public charter", "school_grades": "12-Jun", "total_students": "749", "students_per_teacher": "14:01", "school_district": "Oakland Unified School District", "Latitude": 37.807889, "Longitude": -122.27107, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 530, "Street": "18th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94612, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.27107, 37.807889 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jul", "ratings_clean": "7", "gs_scale": "Above average", "school_name": "American Indian Public Charter School", "school_address": "171 12th Street, Oakland, CA, 94607", "school_type": "Public charter", "school_grades": "8-Jun", "total_students": "161", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.800101, "Longitude": -122.265497, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 171, "Street": "12th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.265497, 37.800101 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jul", "ratings_clean": "7", "gs_scale": "Above average", "school_name": "Cleveland Elementary School", "school_address": "745 Cleveland Street, Oakland, CA, 94606", "school_type": "Public district", "school_grades": "K-5", "total_students": "404", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.804272, "Longitude": -122.244063, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 745, "Street": "Cleveland St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.244063, 37.804272 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jul", "ratings_clean": "7", "gs_scale": "Above average", "school_name": "Joaquin Miller Elementary School", "school_address": "5525 Ascot Drive, Oakland, CA, 94611", "school_type": "Public district", "school_grades": "K-5", "total_students": "443", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.818864, "Longitude": -122.201594, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 5525, "Street": "Ascot Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94611, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.201594, 37.818864 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jul", "ratings_clean": "7", "gs_scale": "Above average", "school_name": "Oakland Technical High School", "school_address": "4351 Broadway, Oakland, CA, 94611", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "2016", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.832271, "Longitude": -122.255457, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 4351, "Street": "Broadway", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94611, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.255457, 37.832271 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jul", "ratings_clean": "7", "gs_scale": "Above average", "school_name": "American Indian Public High School", "school_address": "746 Grand Ave., Oakland, CA, 94607", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "411", "students_per_teacher": "13:01", "school_district": "Oakland Unified School District", "Latitude": 37.813125, "Longitude": -122.274567, "Accuracy Score": 0.8, "Accuracy Type": "range_interpolation", "Number": 746, "Street": "W Grand", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94612, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.274567, 37.813125 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jul", "ratings_clean": "7", "gs_scale": "Above average", "school_name": "Oakland Charter High School", "school_address": "2433 Coolidge Avenue, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "459", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.786321, "Longitude": -122.21947, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2433, "Street": "Coolidge Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.21947, 37.786321 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jun", "ratings_clean": "6", "gs_scale": "Average", "school_name": "Edna Brewer Middle School", "school_address": "3748 13th Avenue, Oakland, CA, 94610", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "808", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.803527, "Longitude": -122.229126, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 3748, "Street": "13th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94610, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.229126, 37.803527 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jun", "ratings_clean": "6", "gs_scale": "Average", "school_name": "Claremont Middle School", "school_address": "5750 College Avenue, Oakland, CA, 94618", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "485", "students_per_teacher": "20:01", "school_district": "Oakland Unified School District", "Latitude": 37.846041, "Longitude": -122.252022, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 5750, "Street": "College Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94618, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.252022, 37.846041 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jun", "ratings_clean": "6", "gs_scale": "Average", "school_name": "Oakland Unity High School", "school_address": "6038 Brann Street, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "359", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.773505, "Longitude": -122.184748, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 6038, "Street": "Brann St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.184748, 37.773505 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jun", "ratings_clean": "6", "gs_scale": "Average", "school_name": "Aspire Monarch Academy", "school_address": "1445 101st Avenue, Oakland, CA, 94603", "school_type": "Public charter", "school_grades": "K-5", "total_students": "418", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.74278, "Longitude": -122.167712, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1445, "Street": "101st Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.167712, 37.74278 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jun", "ratings_clean": "6", "gs_scale": "Average", "school_name": "East Bay Innovation Academy", "school_address": "3400 Malcolm Avenue, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "12-Jun", "total_students": "562", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.745418, "Longitude": -122.140672, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 3400, "Street": "Malcolm Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.140672, 37.745418 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Emery Secondary School", "school_address": "1100 47th Street, Oakland, CA, 94608", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "183", "students_per_teacher": "15:01", "school_district": "Emery Unified School District", "Latitude": 37.835648, "Longitude": -122.281683, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1100, "Street": "47th St", "Unit Type": null, "Unit Number": null, "City": "Emeryville", "State": "CA", "County": "Alameda County", "Zip": 94608, "Country": "US", "Source": "City of Emeryville" }, "geometry": { "type": "Point", "coordinates": [ -122.281683, 37.835648 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Glenview Elementary School", "school_address": "4215 La Cresta Avenue, Oakland, CA, 94602", "school_type": "Public district", "school_grades": "K-5", "total_students": "465", "students_per_teacher": "28:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.805891, "Longitude": -122.219759, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 4215, "Street": "La Cresta Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94602, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.219759, 37.805891 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Redwood Heights Elementary School", "school_address": "4401 39th Avenue, Oakland, CA, 94619", "school_type": "Public district", "school_grades": "K-5", "total_students": "372", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.796943, "Longitude": -122.186618, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4401, "Street": "39th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.186618, 37.796943 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Sequoia Elementary School", "school_address": "3730 Lincoln Avenue, Oakland, CA, 94602", "school_type": "Public district", "school_grades": "K-5", "total_students": "436", "students_per_teacher": "28:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.802131, "Longitude": -122.211605, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3730, "Street": "Lincoln Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94602, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.211605, 37.802131 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Acorn Woodland Elementary School", "school_address": "1025 81st Avenue, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "286", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.753182, "Longitude": -122.185778, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1025, "Street": "81st Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.185778, 37.753182 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Metwest High School", "school_address": "314 East Tenth Street, Oakland, CA, 94606", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "160", "students_per_teacher": "15:01", "school_district": "Oakland Unified School District", "Latitude": 37.795235, "Longitude": -122.258072, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 314, "Street": "E 10th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.258072, 37.795235 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Aspire Berkley Maynard Academy", "school_address": "6200 San Pablo Avenue, Oakland, CA, 94608", "school_type": "Public charter", "school_grades": "K-8", "total_students": "587", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.844916, "Longitude": -122.284699, "Accuracy Score": 0.7, "Accuracy Type": "nearest_rooftop_match", "Number": 6211, "Street": "San Pablo Ave", "Unit Type": null, "Unit Number": null, "City": "Emeryville", "State": "CA", "County": "Alameda County", "Zip": 94608, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.284699, 37.844916 ] } },
-{ "type": "Feature", "properties": { "rating": "10-May", "ratings_clean": "5", "gs_scale": "Average", "school_name": "Lazear Charter Academy", "school_address": "824 29th Avenue, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "K-8", "total_students": "470", "students_per_teacher": "N\/A", "school_district": "Alameda County Office of Education", "Latitude": 37.775775, "Longitude": -122.231668, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 824, "Street": "29th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.231668, 37.775775 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "Oakland Charter Academy", "school_address": "4215 Foothill Boulevard, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "8-Jun", "total_students": "235", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.775131, "Longitude": -122.213009, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 4215, "Street": "Foothill Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.213009, 37.775131 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "Lighthouse Community Charter School", "school_address": "444 Hegenberger Street, Oakland, CA, 94621", "school_type": "Public charter", "school_grades": "K-8", "total_students": "505", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.736145, "Longitude": -122.195709, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 444, "Street": "Hegenberger Lp", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.195709, 37.736145 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "ASCEND School", "school_address": "3709 East 12th Street, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "K-8", "total_students": "486", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.773716, "Longitude": -122.221464, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 3709, "Street": "E 12th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.221464, 37.773716 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "Think College Now School", "school_address": "2825 International Boulevard, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "305", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.779451, "Longitude": -122.230805, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2825, "Street": "International Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.230805, 37.779451 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "Lighthouse Community Charter High School", "school_address": "444 Hegenberger Road, Oakland, CA, 94621", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "280", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.736032, "Longitude": -122.196473, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 444, "Street": "Hegenberger Rd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.196473, 37.736032 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "Arise High School", "school_address": "3301 East 12th Street, Suite 205, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "317", "students_per_teacher": "17:01", "school_district": "Oakland Unified School District", "Latitude": 37.77567, "Longitude": -122.224682, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 3301, "Street": "E 12th St", "Unit Type": "Ste", "Unit Number": "205", "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.224682, 37.77567 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "KIPP Bridge Charter School", "school_address": "1700 Market Street, Oakland, CA, 94607", "school_type": "Public charter", "school_grades": "K-8", "total_students": "528", "students_per_teacher": "18:01", "school_district": "Oakland Unified School District", "Latitude": 37.810173, "Longitude": -122.279092, "Accuracy Score": 0.82, "Accuracy Type": "nearest_rooftop_match", "Number": 1702, "Street": "Market St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.279092, 37.810173 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Apr", "ratings_clean": "4", "gs_scale": "Below average", "school_name": "Urban Montessori Charter School", "school_address": "5328 Brann Street, Oakland, CA, 94619", "school_type": "Public charter", "school_grades": "K-8", "total_students": "432", "students_per_teacher": "N\/A", "school_district": "Alameda County Office of Education", "Latitude": 37.778352, "Longitude": -122.189501, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 5328, "Street": "Brann St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.189501, 37.778352 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Bella Vista Elementary School", "school_address": "1025 East 28th Street, Oakland, CA, 94610", "school_type": "Public district", "school_grades": "K-5", "total_students": "469", "students_per_teacher": "28:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.80002, "Longitude": -122.237596, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1025, "Street": "E 28th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94610, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.237596, 37.80002 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Burckhalter Elementary School", "school_address": "3994 Burckhalter Avenue, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "K-5", "total_students": "249", "students_per_teacher": "30:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.775814, "Longitude": -122.166271, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3994, "Street": "Burckhalter Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.166271, 37.775814 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Rudsdale Continuation School", "school_address": "8251 Fontaine Street, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "255", "students_per_teacher": "31:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.766251, "Longitude": -122.154398, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8251, "Street": "Fontaine St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.154398, 37.766251 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Franklin Elementary School", "school_address": "915 Foothill Boulevard, Oakland, CA, 94606", "school_type": "Public district", "school_grades": "K-5", "total_students": "653", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.793433, "Longitude": -122.248715, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 915, "Street": "Foothill Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.248715, 37.793433 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "La Escuelita Elementary School", "school_address": "1100 Third Avenue, Oakland, CA, 94606", "school_type": "Public district", "school_grades": "K-8", "total_students": "406", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.795603, "Longitude": -122.25683, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1100, "Street": "3rd Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.25683, 37.795603 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Laurel Elementary School", "school_address": "3750 Brown Avenue, Oakland, CA, 94619", "school_type": "Public district", "school_grades": "K-5", "total_students": "475", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.792805, "Longitude": -122.196211, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 3750, "Street": "Brown Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.196211, 37.792805 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Madison Park Academy 6-12", "school_address": "400 Capistrano Drive, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "12-Jun", "total_students": "774", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.727683, "Longitude": -122.179249, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 400, "Street": "Capistrano Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.179249, 37.727683 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Montera Middle School", "school_address": "5555 Ascot Drive, Oakland, CA, 94611", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "727", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.819275, "Longitude": -122.201776, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 5555, "Street": "Ascot Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94611, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.201776, 37.819275 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Roosevelt Middle School", "school_address": "1926 19th Avenue, Oakland, CA, 94606", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "568", "students_per_teacher": "30:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.789853, "Longitude": -122.237535, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1926, "Street": "19th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.237535, 37.789853 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Skyline High School", "school_address": "12250 Skyline Boulevard, Oakland, CA, 94619", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "1592", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.798377, "Longitude": -122.16148, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 12250, "Street": "Skyline Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.16148, 37.798377 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Esperanza Elementary School", "school_address": "10315 E Street, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "K-5", "total_students": "345", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.737492, "Longitude": -122.173675, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 10315, "Street": "E St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.173675, 37.737492 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Life Academy", "school_address": "2101 35th Avenue, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "12-Jun", "total_students": "463", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.78438, "Longitude": -122.216797, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2101, "Street": "35th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.216797, 37.78438 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "North Oakland Community Charter School", "school_address": "1000 42nd Street, Oakland, CA, 94608", "school_type": "Public charter", "school_grades": "K-8", "total_students": "172", "students_per_teacher": "17:01", "school_district": "Oakland Unified School District", "Latitude": 37.833202, "Longitude": -122.27655, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1000, "Street": "42nd St", "Unit Type": null, "Unit Number": null, "City": "Emeryville", "State": "CA", "County": "Alameda County", "Zip": 94608, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.27655, 37.833202 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Melrose Leadership Academy", "school_address": "4730 Fleming Avenue, Oakland, CA, 94619", "school_type": "Public district", "school_grades": "PK-8", "total_students": "538", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.780414, "Longitude": -122.197891, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4730, "Street": "Fleming Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.197891, 37.780414 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Urban Promise Academy", "school_address": "3031 East 18th Street, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "370", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.781981, "Longitude": -122.224228, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3031, "Street": "E 18th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.224228, 37.781981 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Aspire Lionel Wilson College Preparatory Academy", "school_address": "400 105th Avenue, Oakland, CA, 94603", "school_type": "Public charter", "school_grades": "12-Jun", "total_students": "525", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.729428, "Longitude": -122.179864, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 400, "Street": "105th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.179864, 37.729428 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Aspire Triumph Technology Academy", "school_address": "3200 62nd Avenue, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "K-5", "total_students": "284", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.774237, "Longitude": -122.182473, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3200, "Street": "62nd Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.182473, 37.774237 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Manzanita Seed", "school_address": "2409 East 27th Street, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "391", "students_per_teacher": "20:01", "school_district": "Oakland Unified School District", "Latitude": 37.791721, "Longitude": -122.224852, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2409, "Street": "E 27th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.224852, 37.791721 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Achieve Academy", "school_address": "1700 28th Avenue, Oakland, CA, 94621", "school_type": "Public charter", "school_grades": "K-5", "total_students": "638", "students_per_teacher": "30:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.782342, "Longitude": -122.226161, "Accuracy Score": 0.9, "Accuracy Type": "rooftop", "Number": 1700, "Street": "28th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.226161, 37.782342 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Coliseum College Prep Academy", "school_address": "1390 66th Avenue, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "12-Jun", "total_students": "486", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.761869, "Longitude": -122.193566, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1390, "Street": "66th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.193566, 37.761869 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Learning Without Limits School", "school_address": "2035 40th Avenue, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "K-5", "total_students": "429", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.779417, "Longitude": -122.213294, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2035, "Street": "40th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.213294, 37.779417 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Oakland Unity Middle", "school_address": "7200 Bancroft Avenue Suite 261, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "8-Jun", "total_students": "184", "students_per_teacher": "N\/A", "school_district": "Alameda County Office of Education", "Latitude": 37.76643, "Longitude": -122.177772, "Accuracy Score": 0.9, "Accuracy Type": "range_interpolation", "Number": 7200, "Street": "Bancroft Ave", "Unit Type": "Ste", "Unit Number": "261", "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.177772, 37.76643 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "Aspire Eres Academy", "school_address": "1936 Courtland Avenue, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "K-8", "total_students": "237", "students_per_teacher": "19:01", "school_district": "Oakland Unified School District", "Latitude": 37.775666, "Longitude": -122.21176, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1936, "Street": "Courtland Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.21176, 37.775666 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Mar", "ratings_clean": "3", "gs_scale": "Below average", "school_name": "LPS Oakland R&D", "school_address": "8601 Macarthur Boulevard, Building 100, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "483", "students_per_teacher": "18:01", "school_district": "Oakland Unified School District", "Latitude": 37.758308, "Longitude": -122.163277, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8601, "Street": "Macarthur Blvd", "Unit Type": "Bldg", "Unit Number": "100", "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.163277, 37.758308 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Brookfield Elementary School", "school_address": "401 Jones Avenue, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "K-5", "total_students": "232", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.735949, "Longitude": -122.188626, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 401, "Street": "Jones Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.188626, 37.735949 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Fruitvale Elementary School", "school_address": "3200 Boston Avenue, Oakland, CA, 94602", "school_type": "Public district", "school_grades": "K-5", "total_students": "332", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.796182, "Longitude": -122.214102, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3200, "Street": "Boston Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94602, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.214102, 37.796182 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Garfield Elementary School", "school_address": "1640 22nd Avenue, Oakland, CA, 94606", "school_type": "Public district", "school_grades": "K-5", "total_students": "668", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.786599, "Longitude": -122.235724, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1640, "Street": "22nd Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.235724, 37.786599 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Howard Elementary School", "school_address": "8755 Fontaine Street, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "K-5", "total_students": "194", "students_per_teacher": "31:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.767932, "Longitude": -122.153988, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 8755, "Street": "Fontaine St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.153988, 37.767932 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Martin Luther King, Jr. Elementary School", "school_address": "960 Tenth Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "PK-3", "total_students": "314", "students_per_teacher": "31:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.806314, "Longitude": -122.282771, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 960, "Street": "10th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.282771, 37.806314 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Carl B. Munck Elementary School", "school_address": "11900 Campus Drive, Oakland, CA, 94619", "school_type": "Public district", "school_grades": "K-5", "total_students": "228", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.79522, "Longitude": -122.174062, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 11900, "Street": "Campus Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.174062, 37.79522 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Oakland High School", "school_address": "1023 Macarthur Boulevard, Oakland, CA, 94610", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "1642", "students_per_teacher": "29:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.805332, "Longitude": -122.237079, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1023, "Street": "Macarthur Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94610, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.237079, 37.805332 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Parker Elementary School", "school_address": "7929 Ney Avenue, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "K-8", "total_students": "314", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.765381, "Longitude": -122.165523, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 7929, "Street": "Ney Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.165523, 37.765381 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Piedmont Avenue Elementary School", "school_address": "4314 Piedmont Avenue, Oakland, CA, 94611", "school_type": "Public district", "school_grades": "K-5", "total_students": "329", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.829046, "Longitude": -122.248798, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4314, "Street": "Piedmont Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94611, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.248798, 37.829046 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Preparatory Literary Academy Of Cultural Excellence", "school_address": "920 Campbell Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "K-5", "total_students": "151", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.80826, "Longitude": -122.297927, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 920, "Street": "Campbell St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.297927, 37.80826 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "International Community School", "school_address": "2825 International Boulevard, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "293", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.779451, "Longitude": -122.230805, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2825, "Street": "International Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.230805, 37.779451 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Bay Area Technology School", "school_address": "8251 Fontaine Street, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "12-Jun", "total_students": "299", "students_per_teacher": "16:01", "school_district": "Oakland Unified School District", "Latitude": 37.766251, "Longitude": -122.154398, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8251, "Street": "Fontaine St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.154398, 37.766251 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Oakland Military Institute, College Preparatory Academy", "school_address": "3877 Lusk Street, Oakland, CA, 94608", "school_type": "Public charter", "school_grades": "12-Jun", "total_students": "743", "students_per_teacher": "15:01", "school_district": "Oakland Unified School District", "Latitude": 37.829443, "Longitude": -122.272498, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3877, "Street": "Lusk St", "Unit Type": null, "Unit Number": null, "City": "Emeryville", "State": "CA", "County": "Alameda County", "Zip": 94608, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.272498, 37.829443 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Mcclymonds High School", "school_address": "2607 Myrtle Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "383", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.817863, "Longitude": -122.278776, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2607, "Street": "Myrtle St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.278776, 37.817863 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Envision Academy For Arts & Technology", "school_address": "1515 Webster Street, Oakland, CA, 94612", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "385", "students_per_teacher": "21:01", "school_district": "Alameda County Office of Education", "Latitude": 37.804722, "Longitude": -122.268394, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1515, "Street": "Webster St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94612, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.268394, 37.804722 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Fred T. Korematsu Discovery Academy", "school_address": "10315 E Street, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "K-5", "total_students": "295", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.737492, "Longitude": -122.173675, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 10315, "Street": "E St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.173675, 37.737492 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Greenleaf Elementary School", "school_address": "6328 East 17th Street, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-8", "total_students": "635", "students_per_teacher": "20:01", "school_district": "Oakland Unified School District", "Latitude": 37.764772, "Longitude": -122.194576, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 6328, "Street": "E 17th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.194576, 37.764772 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Aspire College Academy", "school_address": "8030 Atherton Street, Oakland, CA, 94605", "school_type": "Public charter", "school_grades": "K-5", "total_students": "286", "students_per_teacher": "20:01", "school_district": "Oakland Unified School District", "Latitude": 37.761558, "Longitude": -122.170949, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 8030, "Street": "Atherton St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.170949, 37.761558 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Epic Charter", "school_address": "1112 29th Avenue, Oakland, CA, 94601", "school_type": "Public charter", "school_grades": "8-Jun", "total_students": "316", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.777417, "Longitude": -122.230701, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1112, "Street": "29th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.230701, 37.777417 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Lodestar: A Lighthouse Community Charter Public", "school_address": "2634 Pleasant Street, Oakland, CA, 94602", "school_type": "Public charter", "school_grades": "K-12", "total_students": "522", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.797306, "Longitude": -122.216266, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2634, "Street": "Pleasant St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94602, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.216266, 37.797306 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Aspire Golden State College Preparatory Academy", "school_address": "1009 66th Avenue, Oakland, CA, 94610", "school_type": "Public charter", "school_grades": "12-Jun", "total_students": "618", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.759694, "Longitude": -122.198867, "Accuracy Score": 0.9, "Accuracy Type": "rooftop", "Number": 1009, "Street": "66th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.198867, 37.759694 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Ralph J. Bunche High School", "school_address": "1240 18th Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "124", "students_per_teacher": "17:01", "school_district": "Oakland Unified School District", "Latitude": 37.813094, "Longitude": -122.286764, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1240, "Street": "18th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.286764, 37.813094 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Community School For Creative Education", "school_address": "2111 International Boulevard, Oakland, CA, 94606", "school_type": "Public charter", "school_grades": "K-8", "total_students": "241", "students_per_teacher": "N\/A", "school_district": "Alameda County Office of Education", "Latitude": 37.784648, "Longitude": -122.238638, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2111, "Street": "International Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94606, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.238638, 37.784648 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Feb", "ratings_clean": "2", "gs_scale": "Below average", "school_name": "Fremont High", "school_address": "4610 Foothill Boulevard, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "771", "students_per_teacher": "20:01", "school_district": "Oakland Unified School District", "Latitude": 37.7744, "Longitude": -122.209724, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 4610, "Street": "Foothill Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.209724, 37.7744 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Allendale Elementary School", "school_address": "3670 Penniman Avenue, Oakland, CA, 94619", "school_type": "Public district", "school_grades": "K-5", "total_students": "401", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.788656, "Longitude": -122.205092, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3670, "Street": "Penniman Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.205092, 37.788656 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Emerson Elementary School", "school_address": "4803 Lawton Avenue, Oakland, CA, 94609", "school_type": "Public district", "school_grades": "K-5", "total_students": "308", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.834683, "Longitude": -122.257399, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4803, "Street": "Lawton Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94609, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.257399, 37.834683 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Frick Middle School", "school_address": "2845 64th Avenue, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "231", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.771098, "Longitude": -122.184307, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2845, "Street": "64th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.184307, 37.771098 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Grass Valley Elementary School", "school_address": "4720 Dunkirk Avenue, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "K-5", "total_students": "255", "students_per_teacher": "31:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.753027, "Longitude": -122.124971, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4720, "Street": "Dunkirk Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.124971, 37.753027 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Bret Harte Middle School", "school_address": "3700 Coolidge Avenue, Oakland, CA, 94602", "school_type": "Public district", "school_grades": "9-Jun", "total_students": "556", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.799696, "Longitude": -122.207414, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 3700, "Street": "Coolidge Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94602, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.207414, 37.799696 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "New Highland Academy", "school_address": "8521 A Street, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "356", "students_per_teacher": "19:01", "school_district": "Oakland Unified School District", "Latitude": 37.751703, "Longitude": -122.179513, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8521, "Street": "A St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.179513, 37.751703 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Hoover Elementary School", "school_address": "890 Brockhurst Street, Oakland, CA, 94608", "school_type": "Public district", "school_grades": "K-5", "total_students": "269", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.823272, "Longitude": -122.27426, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 890, "Street": "Brockhurst St", "Unit Type": null, "Unit Number": null, "City": "Emeryville", "State": "CA", "County": "Alameda County", "Zip": 94608, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.27426, 37.823272 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Lafayette Elementary School", "school_address": "991 14th Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "5-Feb", "total_students": "83", "students_per_teacher": "29:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.808747, "Longitude": -122.28281, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 991, "Street": "14th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.28281, 37.808747 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Horace Mann Elementary School", "school_address": "5222 Ygnacio Avenue, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "294", "students_per_teacher": "19:01", "school_district": "Oakland Unified School District", "Latitude": 37.773649, "Longitude": -122.202441, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 5222, "Street": "Ygnacio Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.202441, 37.773649 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Manzanita Community", "school_address": "2409 East 27th Street, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "412", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.791721, "Longitude": -122.224852, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2409, "Street": "E 27th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.224852, 37.791721 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Markham Elementary School", "school_address": "7220 Krause Avenue, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "K-5", "total_students": "330", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.765511, "Longitude": -122.178637, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 7220, "Street": "Krause Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.178637, 37.765511 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Bridges Academy", "school_address": "1325 53rd Avenue, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "439", "students_per_teacher": "19:01", "school_district": "Oakland Unified School District", "Latitude": 37.767511, "Longitude": -122.207223, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1325, "Street": "53rd Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.207223, 37.767511 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Madison Park Academy Tk-5", "school_address": "470 El Paseo Drive, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "K-5", "total_students": "277", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.727981, "Longitude": -122.176582, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 470, "Street": "El Paseo Dr", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.176582, 37.727981 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Westlake Middle School", "school_address": "2629 Harrison Street, Oakland, CA, 94612", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "307", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.814674, "Longitude": -122.261241, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2629, "Street": "Harrison St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94612, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.261241, 37.814674 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Alternatives in Action", "school_address": "6221 E 17th Street, Oakland, CA, 94621", "school_type": "Public charter", "school_grades": "12-Sep", "total_students": "202", "students_per_teacher": "13:01", "school_district": "Alameda Unified School District", "Latitude": 37.764353, "Longitude": -122.195514, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 6221, "Street": "E 17th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.195514, 37.764353 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Independent Study, Sojourner Truth School", "school_address": "8251 Fontaine Street, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "K-12", "total_students": "166", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.766251, "Longitude": -122.154398, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8251, "Street": "Fontaine St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.154398, 37.766251 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Encompass Academy Elementary", "school_address": "1025 81st Avenue, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "327", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.753182, "Longitude": -122.185778, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1025, "Street": "81st Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.185778, 37.753182 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Reach Academy", "school_address": "9860 Sunnyside Street, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "K-5", "total_students": "383", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.746575, "Longitude": -122.16177, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 9860, "Street": "Sunnyside St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.16177, 37.746575 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Sankofa Academy", "school_address": "581 61st Street, Oakland, CA, 94609", "school_type": "Public district", "school_grades": "PK-5", "total_students": "189", "students_per_teacher": "21:01", "school_district": "Oakland Unified School District", "Latitude": 37.847028, "Longitude": -122.26434, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 581, "Street": "61st St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94609, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.26434, 37.847028 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Rise Community School", "school_address": "8521 A Street, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "233", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.751703, "Longitude": -122.179513, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8521, "Street": "A St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.179513, 37.751703 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "United For Success Academy", "school_address": "2101 35th Avenue, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "370", "students_per_teacher": "27:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.78438, "Longitude": -122.216797, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2101, "Street": "35th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.216797, 37.78438 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Alliance Academy", "school_address": "1800 98th Avenue, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "287", "students_per_teacher": "22:01", "school_district": "Oakland Unified School District", "Latitude": 37.746049, "Longitude": -122.165175, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1800, "Street": "98th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.165175, 37.746049 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Elmhurst Community Prep School", "school_address": "1800 98th Avenue, Oakland, CA, 94603", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "372", "students_per_teacher": "26:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.746049, "Longitude": -122.165175, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1800, "Street": "98th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.165175, 37.746049 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Roots International Academy", "school_address": "1390 66th Avenue, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "273", "students_per_teacher": "19:01", "school_district": "Oakland Unified School District", "Latitude": 37.761869, "Longitude": -122.193566, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 1390, "Street": "66th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.193566, 37.761869 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Global Family School", "school_address": "2035 40th Avenue, Oakland, CA, 94601", "school_type": "Public district", "school_grades": "K-5", "total_students": "444", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.779417, "Longitude": -122.213294, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 2035, "Street": "40th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94601, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.213294, 37.779417 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Oakland International High School", "school_address": "4521 Webster Street, Oakland, CA, 94609", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "369", "students_per_teacher": "20:01", "school_district": "Oakland Unified School District", "Latitude": 37.833391, "Longitude": -122.260261, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4521, "Street": "Webster St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94609, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.260261, 37.833391 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Community United Elementary School", "school_address": "6701 International Boulevard, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "351", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.760501, "Longitude": -122.193139, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 6701, "Street": "International Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.193139, 37.760501 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Futures Elementary School", "school_address": "6701 International Boulevard, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "312", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.760501, "Longitude": -122.193139, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 6701, "Street": "International Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.193139, 37.760501 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "East Oakland Pride Elementary School", "school_address": "8000 Birch Street, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "K-5", "total_students": "337", "students_per_teacher": "25:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.759203, "Longitude": -122.174555, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 8000, "Street": "Birch St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.174555, 37.759203 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "West Oakland Middle School", "school_address": "991 14th Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "199", "students_per_teacher": "24:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.808747, "Longitude": -122.28281, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 991, "Street": "14th St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.28281, 37.808747 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Roses In Concrete", "school_address": "4551 Steele Street, Oakland, CA, 94619", "school_type": "Public charter", "school_grades": "K-8", "total_students": "368", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.787688, "Longitude": -122.187875, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 4551, "Street": "Steele St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94619, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.187875, 37.787688 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Oakland Sol (School Of Language) Dual Language Middle", "school_address": "1180 70th Avenue, Oakland, CA, 94621", "school_type": "Public district", "school_grades": "8-Jun", "total_students": "100", "students_per_teacher": "N\/A", "school_district": "Oakland Unified School District", "Latitude": 37.759075, "Longitude": -122.190746, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 1180, "Street": "70th Ave", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94621, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.190746, 37.759075 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Gateway To College at Laney College School", "school_address": "900 Fallon Street, Oakland, CA, 94607", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "78", "students_per_teacher": "73:01:00", "school_district": "Oakland Unified School District", "Latitude": 37.796148, "Longitude": -122.261338, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 900, "Street": "Fallon St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.261338, 37.796148 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Cox Academy", "school_address": "9860 Sunnyside Street, Oakland, CA, 94603", "school_type": "Public charter", "school_grades": "PK-5", "total_students": "610", "students_per_teacher": "24:01:00", "school_district": "Alameda County Office of Education", "Latitude": 37.746575, "Longitude": -122.16177, "Accuracy Score": 1.0, "Accuracy Type": "range_interpolation", "Number": 9860, "Street": "Sunnyside St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94603, "Country": "US", "Source": "TIGER\/Line® dataset from the US Census Bureau" }, "geometry": { "type": "Point", "coordinates": [ -122.16177, 37.746575 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Castlemont High", "school_address": "8601 Macarthur Boulevard, Oakland, CA, 94605", "school_type": "Public district", "school_grades": "12-Sep", "total_students": "835", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.758308, "Longitude": -122.163277, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 8601, "Street": "Macarthur Blvd", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94605, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.163277, 37.758308 ] } },
-{ "type": "Feature", "properties": { "rating": "10-Jan", "ratings_clean": "1", "gs_scale": "Below average", "school_name": "Vincent Academy", "school_address": "2501 Chestnut Street, Oakland, CA, 94607", "school_type": "Public charter", "school_grades": "K-5", "total_students": "242", "students_per_teacher": "23:01", "school_district": "Oakland Unified School District", "Latitude": 37.818122, "Longitude": -122.282197, "Accuracy Score": 1.0, "Accuracy Type": "rooftop", "Number": 2501, "Street": "Chestnut St", "Unit Type": null, "Unit Number": null, "City": "Oakland", "State": "CA", "County": "Alameda County", "Zip": 94607, "Country": "US", "Source": "Alameda County" }, "geometry": { "type": "Point", "coordinates": [ -122.282197, 37.818122 ] } }
-]
-};
-			
-		var bounds = new mapboxgl.LngLatBounds();
-
-		schools.features.forEach(function(feature) {
-			// Zoom map to markers
-			bounds.extend(feature.geometry.coordinates);
-			map.fitBounds(bounds, { padding: 120, offset: [-10,0] });
-
-			var rating = feature.properties['ratings_clean'];
-			var layerID = 'rated-' + rating;
-			 
-			// Add a layer for this symbol type if it hasn't been added already.
-			if (!map.getLayer(layerID)) {
-				map.addLayer({
-					'id': layerID,
-					'type': 'circle',
-					'source': 'schools',
-					'paint': {
-						// make circles larger as the user zooms from z12 to z22
-						'circle-radius': {
-							//'base': 20,
-							'stops': [
-								[8, 1],
-								[9, 2],
-								[10, 4],
-								[11, 8],
-								[12, 16]
-								//[14, 20],
-								// [18, 60],
-								// [22, 180]
-							]
+				let rating = feature.properties['ratings_clean'];
+				let layerID = 'rated-' + rating;
+				 
+				// add a layer for each individual symbol type (rating) if it hasn't been added already
+				if (!map.getLayer(layerID)) {
+					map.addLayer({
+						'id': layerID,
+						'type': 'circle',
+						'source': 'schools',
+						'paint': {
+							// make circles larger as user zooms from z10 to z12
+							'circle-radius': {
+								'stops': [
+									[10, 4],
+									[11, 8],
+									[12, 16]
+								]
+							},
+							// color circles by score, using a match expression
+							// https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+							// colors via https://colorbrewer2.org/#type=sequential&scheme=YlGn&n=9
+							'circle-color': [
+								'match',
+								rating,
+								'10',
+								'#004529',
+								'9',
+								'#006837',
+								'8',
+								'#238443',
+								'7',
+								'#41ab5d',
+								'6',
+								'#78c679',
+								'5',
+								'#addd8e',
+								'4',
+								'#d9f0a3',
+								'3',
+								'#f7fcb9',
+								'2',
+								'#ffffe5',
+								'1',
+								'#fff',
+								'#ddd' // other
+							],
+						    'circle-stroke-width': 1.25,
+						    'circle-stroke-color': '#000'
 						},
-						// color circles by score, using a match expression
-						// https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-						'circle-color': [
-							'match',
-							rating,
-							'10',
-							'#004529',
-							'9',
-							'#006837',
-							'8',
-							'#238443',
-							'7',
-							'#41ab5d',
-							'6',
-							'#78c679',
-							'5',
-							'#addd8e',
-							'4',
-							'#d9f0a3',
-							'3',
-							'#f7fcb9',
-							'2',
-							'#ffffe5',
-							'1',
-							'#fff',
-							/* other */ '#ddd'
-						],
-						//'circle-opacity': 0,
-					    'circle-stroke-width': 1.25,
-					    'circle-stroke-color': '#000'
-					},
-					'filter': ['==', 'ratings_clean', rating]
-				}, target_layer_points);
-				 
-				// Add checkbox and label elements for the layer.
-				var input = document.createElement('input');
-				input.type = 'checkbox';
-				input.id = layerID;
-				input.checked = true;
-				filterGroup.appendChild(input);
-				 
-				var label = document.createElement('label');
+						'filter': ['==', 'ratings_clean', rating] //assigns filter value for controls
+					}, target_layer_schools);
+					 
+					// build filter controls in the legend for this layer
+					// checkbox first
+					let input = document.createElement('input');
+					input.type = 'checkbox';
+					input.id = layerID;
+					input.checked = true;
+					filter_group.appendChild(input);
+					 
+					// label with color key second
+					let label = document.createElement('label');
+					let color_key = document.createElement('span');
+					color_key.classList.add('color-key');
+					color_key.classList.add(layerID);
+					label.setAttribute('for', layerID);
+					label.textContent = rating;
+					filter_group.appendChild(label);
+					label.prepend(color_key);
+					 
+					// when the checkbox changes, update the visibility of this layer
+					input.addEventListener('change', function(e) {
+						map.setLayoutProperty(
+							layerID,
+							'visibility',
+							e.target.checked ? 'visible' : 'none'
+						);
+					});
 
-				var color_box = document.createElement('span');
-				color_box.classList.add('color-box');
-				color_box.classList.add(layerID);
+					// add a mapbox popup for points in this layer
+					let popup = new mapboxgl.Popup();
+					handlePopup(layerID, popup);
 
-				label.setAttribute('for', layerID);
-				label.textContent = rating;
-				filterGroup.appendChild(label);
-				label.prepend(color_box);
-				 
-				// When the checkbox changes, update the visibility of the layer.
-				input.addEventListener('change', function(e) {
-					map.setLayoutProperty(
-						layerID,
-						'visibility',
-						e.target.checked ? 'visible' : 'none'
-					);
-				});
-
-				var popup = new mapboxgl.Popup();
-				handlePopup(layerID, popup);
-				handleMouseEnter(layerID);
-				handleMouseLeave(layerID);
-			}
-
-
-		});
-		
-
-		function handlePopup(layerID, popup) {
-			// When a click event occurs on a feature in the places layer, open a popup at the
-			// location of the feature, with description HTML from its properties.
-			
-			map.on('click', layerID, function(e) {
-				var coordinates = e.features[0].geometry.coordinates.slice();
-				var rating = e.features[0].properties.ratings_clean;
-				var school_name = e.features[0].properties.school_name;
-				var scale = e.features[0].properties.gs_scale;
-				var type = e.features[0].properties.school_type;
-				var total = e.features[0].properties.total_students;
-				var ratio = e.features[0].properties.students_per_teacher;
-
-				var description = '<div class="marker-pin rated-' + rating + '"><span>' + rating + '</span></div>';
-				description += '<h2>' + school_name + '</h2>';
-				description += '<p><strong>' + rating + '/10</strong> GreatSchools rating</p>';
-				description += '<p>The surrounding area is <strong>' + (polygon_data.B03002003/polygon_data.B03002001*100).toFixed(1) + '%</strong> white.</p>';
-				// description += '<p>Type: ' + type + '</p>';
-				// description += '<p>Total Students: ' + total + '</p>';
-				// description += '<p>Students per Teacher: ' + ratio + '</p>';
-				 
-				// Ensure that if the map is zoomed out such that multiple
-				// copies of the feature are visible, the popup appears
-				// over the copy being pointed to.
-				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+					// add hover states for points in this layer
+					handleMouseEnter(layerID);
+					handleMouseLeave(layerID);
 				}
 
 
-				popup
-					.setLngLat(coordinates)
-					.setHTML(description)
-					.addTo(map);
-				
+			});
+			
+
+			function handlePopup(layerID, popup) {
+				// when a click event occurs on a feature (school) in the schools layer, open a popup at the
+				// location of the feature and add description HTML from the clicked feature's properties
+				map.on('click', layerID, function(e) {
+					let coordinates = e.features[0].geometry.coordinates.slice();
+					let rating = e.features[0].properties.ratings_clean;
+					let school_name = e.features[0].properties.school_name;
+
+					// TODO: try this without string concatenation
+					let description = '<div class="marker-pin rated-' + rating + '"><span>' + rating + '</span></div>';
+					description += '<h2>' + school_name + '</h2>';
+					description += '<p><strong>' + rating + '/10</strong> GreatSchools rating</p>';
+					description += '<p>The surrounding area is <strong>' + (polygon_data.B03002003/polygon_data.B03002001*100).toFixed(1) + '%</strong> white.</p>';
+					
+					popup
+						.setLngLat(coordinates) // set the location of the popup relative to the map
+						.setHTML(description) // set the popup's content
+						.addTo(map); // add the popup to the map
+					
+				});
+			}
+
+			function handleMouseEnter(layerID) {
+				// change the cursor to a pointer when the mouse is over a school
+				map.on('mouseenter', layerID, function() {
+					map.getCanvas().style.cursor = 'pointer';
+				});
+			}
+
+			function handleMouseLeave(layerID) {
+				// change it back to the default cursor when the mouse isn't hovering anymore
+				map.on('mouseleave', layerID, function() {
+					map.getCanvas().style.cursor = '';
+				});	
+			}
+
+			// make filters for groups of layers instead of individual ones		
+			// these groups are arbitrary and you need to manually make HTML checkboxes and labels for them
+			function manageMultiFilters(max) {
+				let multifilterID = 'rated-' + (max-2) + '-' + max;
+				document.getElementById(multifilterID).addEventListener('change', (e) => {
+					let event = new Event('change');
+					if (e.target.checked) {
+						for (let i=max; i>(max-3); i--) {
+							let layer = document.getElementById('rated-' + i); // original filter
+							layer.checked = true; // toggle it
+							layer.dispatchEvent(event);
+						}
+					} else {
+						for (let i=max; i>(max-3); i--) {
+							let layer = document.getElementById('rated-' + i); // original filter
+							layer.checked = false; // toggle it
+							layer.dispatchEvent(event);
+						}
+					}
+				});
+			}
+
+			manageMultiFilters(9);
+			manageMultiFilters(6);
+			manageMultiFilters(3);
+
+		} // end addSchools()
+
+		function setBounds() {
+			let padding = 120;
+			let offset = [-10,0];
+
+			if (window.innerWidth < 769) {
+				padding = 100;
+				offset = [0,-50];
+			}
+			map.fitBounds(bounds, { 
+				padding: padding,
+				offset: offset
 			});
 		}
 
-		function handleMouseEnter(layerID) {
-			// Change the cursor to a pointer when the mouse is over the places layer.
-			map.on('mouseenter', layerID, function() {
-				map.getCanvas().style.cursor = 'pointer';
-			});
-		}
-
-		function handleMouseLeave(layerID) {
-			// Change it back to a pointer when it leaves.
-			map.on('mouseleave', layerID, function() {
-				map.getCanvas().style.cursor = '';
-			});	
-		}
-
-		
-		document.getElementById('rated-7-9').addEventListener('change', (e) => {
-			var event = new Event('change');
-			if (e.target.checked) {
-				// alert('high checked');
-				var layer1 = document.getElementById('rated-7');
-					layer1.checked = true;
-					layer1.dispatchEvent(event);
-				var layer2 = document.getElementById('rated-8');
-					layer2.checked = true;
-					layer2.dispatchEvent(event);
-				var layer3 = document.getElementById('rated-9');
-					layer3.checked = true;
-					layer3.dispatchEvent(event);
-			} else {
-				// alert('high not checked');
-				var layer1 = document.getElementById('rated-7');
-					layer1.checked = false;
-					layer1.dispatchEvent(event);
-				var layer2 = document.getElementById('rated-8');
-					layer2.checked = false;
-					layer2.dispatchEvent(event);
-				var layer3 = document.getElementById('rated-9');
-					layer3.checked = false;
-					layer3.dispatchEvent(event);
-			}
-		});
-
-		document.getElementById('rated-4-6').addEventListener('change', (e) => {
-			var event = new Event('change');
-			if (e.target.checked) {
-				// alert('middle checked');
-				var layer1 = document.getElementById('rated-4');
-					layer1.checked = true;
-					layer1.dispatchEvent(event);
-				var layer2 = document.getElementById('rated-5');
-					layer2.checked = true;
-					layer2.dispatchEvent(event);
-				var layer3 = document.getElementById('rated-6');
-					layer3.checked = true;
-					layer3.dispatchEvent(event);
-			} else {
-				// alert('middle not checked');
-				var layer1 = document.getElementById('rated-4');
-					layer1.checked = false;
-					layer1.dispatchEvent(event);
-				var layer2 = document.getElementById('rated-5');
-					layer2.checked = false;
-					layer2.dispatchEvent(event);
-				var layer3 = document.getElementById('rated-6');
-					layer3.checked = false;
-					layer3.dispatchEvent(event);
-			}
-		});
-
-		document.getElementById('rated-1-3').addEventListener('change', (e) => {
-			var event = new Event('change');
-			if (e.target.checked) {
-				// alert('low checked');
-				var layer1 = document.getElementById('rated-1');
-					layer1.checked = true;
-					layer1.dispatchEvent(event);
-				var layer2 = document.getElementById('rated-2');
-					layer2.checked = true;
-					layer2.dispatchEvent(event);
-				var layer3 = document.getElementById('rated-3');
-					layer3.checked = true;
-					layer3.dispatchEvent(event);
-			} else {
-				// alert('low not checked');
-				var layer1 = document.getElementById('rated-1');
-					layer1.checked = false;
-					layer1.dispatchEvent(event);
-				var layer2 = document.getElementById('rated-2');
-					layer2.checked = false;
-					layer2.dispatchEvent(event);
-				var layer3 = document.getElementById('rated-3');
-					layer3.checked = false;
-					layer3.dispatchEvent(event);
-			}
-		});
+		window.onresize = function() {
+			setBounds();	
+		};
 
 	});
 }
