@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Visualize population density</title>
+<title>Boston GreatSchools</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -26,6 +26,9 @@
 	}
 	body { margin: 0; padding: 0; }
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+	.mapboxgl-popup {
+		z-index:2;
+	}
 	.mapboxgl-popup-content {
 		font-family:Mallory, sans-serif;
 		border:1px solid #000;
@@ -180,7 +183,7 @@
 
 	#filter-group-2 {
 		width:220px;
-		font-size:1.125rem;
+		font-size:1rem;
 		font-weight:normal;
 	}
 
@@ -210,12 +213,12 @@
 		top:204px;
 		right:10px;
 		background-color:#fff;
-		padding:1rem;
+		padding:.55rem;
 	}
 
 	#demo h6 {
 		font-size:1rem;
-		margin:0 0 .5rem 0;
+		margin:0 0 .25rem 0;
 	}
 
 	#gradient {

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Visualize population density</title>
+<title>Oakland GreatSchools</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -26,15 +26,20 @@
 	}
 	body { margin: 0; padding: 0; }
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+	.mapboxgl-popup {
+		z-index:2;
+	}
 	.mapboxgl-popup-content {
 		font-family:Mallory, sans-serif;
 		border:1px solid #000;
-		padding:.5rem 1.25rem 1rem 1.5rem;
+		padding:.5rem 1.5rem 1rem 1.5rem;
 		box-shadow: 0 0 10px 0 rgba(0,0,0,.333);
 		transform: translateX(calc(50% - 35px));
 	}
 	.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
-	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+	.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+	.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
 		border-top-color:#000;
 		border-bottom-color:#000;
 	}
@@ -104,6 +109,8 @@
 		margin:.333rem 0 .5rem 0;
 	}
 	.mapboxgl-popup-content p {
+		font-size:.85rem;
+		line-height:1.2;
 		margin:.5rem 0;
 	}
 
@@ -180,7 +187,7 @@
 
 	#filter-group-2 {
 		width:220px;
-		font-size:1.125rem;
+		font-size:1rem;
 		font-weight:normal;
 	}
 
@@ -210,12 +217,12 @@
 		top:204px;
 		right:10px;
 		background-color:#fff;
-		padding:1rem;
+		padding:.55rem;
 	}
 
 	#demo h6 {
 		font-size:1rem;
-		margin:0 0 .5rem 0;
+		margin:0 0 .25rem 0;
 	}
 
 	#gradient {
@@ -341,10 +348,17 @@ function createMap(geojson) {
 					//['get', 'B03002003']/['get', 'B03002001']*100,
 					...scale
 				],
-			'fill-opacity': 1,
+			'fill-opacity': .8,
 			'fill-outline-color': '#fff'
 			}
 		}, target_layer);
+
+
+		var polygon_data = '';
+		map.on('click', 'white-demographics', function(e) {
+			polygon_data = e.features[0].properties;
+			console.log(polygon_data);
+		});
 
 		// map.on('click', 'white-demographics', function(e) {
 		// 	var coordinates = e.features[0].geometry.coordinates.slice();
@@ -520,8 +534,13 @@ function createMap(geojson) {
 ]
 };
 			
+		var bounds = new mapboxgl.LngLatBounds();
 
 		schools.features.forEach(function(feature) {
+			// Zoom map to markers
+			bounds.extend(feature.geometry.coordinates);
+			map.fitBounds(bounds, { padding: 120 });
+
 			var rating = feature.properties['ratings_clean'];
 			var layerID = 'rated-' + rating;
 			 
@@ -537,7 +556,7 @@ function createMap(geojson) {
 							'base': 4.5,
 							'stops': [
 								[10.75, 4.5],
-								[14, 11],
+								[14, 20],
 								[18, 60],
 								[22, 180]
 							]
@@ -629,6 +648,7 @@ function createMap(geojson) {
 				var description = '<div class="marker-pin rated-' + rating + '"><span>' + rating + '</span></div>';
 				description += '<h2>' + school_name + '</h2>';
 				description += '<p><strong>' + rating + '/10</strong> GreatSchools rating</p>';
+				description += '<p>The surrounding area is <strong>' + (polygon_data.B03002003/polygon_data.B03002001*100).toFixed(1) + '%</strong> white.</p>';
 				// description += '<p>Type: ' + type + '</p>';
 				// description += '<p>Total Students: ' + total + '</p>';
 				// description += '<p>Students per Teacher: ' + ratio + '</p>';
