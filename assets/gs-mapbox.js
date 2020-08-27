@@ -70,7 +70,7 @@ function createMap(census_tracts) {
 						['/', ['get', 'B03002003'], ['get', 'B03002001']],
 						...scale
 					],
-				'fill-opacity': .8,
+				'fill-opacity': 1,
 				'fill-outline-color': '#fff'
 			}
 		}, target_layer_tracts);
@@ -128,24 +128,22 @@ function createMap(census_tracts) {
 							'circle-color': [
 								'match',
 								rating.toString(),
-								'10',
-								'#004529',
 								'9',
-								'#006837',
+								'#022951',
 								'8',
-								'#238443',
+								'#2f4375',
 								'7',
-								'#41ab5d',
+								'#325390',
 								'6',
-								'#78c679',
+								'#516aa8',
 								'5',
-								'#addd8e',
+								'#5a80aa',
 								'4',
-								'#d9f0a3',
+								'#8397ca',
 								'3',
-								'#f7fcb9',
+								'#96b1d4',
 								'2',
-								'#ffffe5',
+								'#d8d2e5',
 								'1',
 								'#fff',
 								'#ddd' // other

@@ -89,32 +89,29 @@ body { margin: 0; padding: 0; }
 	border-radius: 50%;
 	border:1px solid #000;
 }
-.rated-10 {
-	background-color:#004529;
-}
 .rated-9 {
-	background-color:#006837;
+	background-color:#022951;
 }
 .rated-8 {
-	background-color:#238443;
+	background-color:#2f4375;
 }
 .rated-7 {
-	background-color:#41ab5d;
+	background-color:#325390;
 }
 .rated-6 {
-	background-color:#78c679;
+	background-color:#516aa8;
 }
 .rated-5 {
-	background-color:#addd8e;
+	background-color:#5a80aa;
 }
 .rated-4 {
-	background-color:#d9f0a3;
+	background-color:#8397ca;
 }
 .rated-3 {
-	background-color:#f7fcb9;
+	background-color:#96b1d4;
 }
 .rated-2 {
-	background-color:#ffffe5;
+	background-color:#d8d2e5;
 }
 .rated-1 {
 	background-color:#fff;
@@ -231,7 +228,7 @@ span.color-key {
 	background: linear-gradient(to right,  #cc5400 0%,#ffd34f 100%);
 	border:1px solid #333;
 	border-radius:3px;
-	opacity:.8;
+	opacity:1;
 }
 #demo span {
 	font-weight:normal;
