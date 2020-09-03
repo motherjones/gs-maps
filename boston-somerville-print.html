@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Boston GreatSchools</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
+	<link href="assets/style-print.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="map"></div>
+	<nav id="filter-group" class="filter-group"></nav>
+
+	<nav id="multi-filter-group" class="filter-group">
+		<h4>GreatSchools Ratings</h4>
+		<span class="instructions">Toggle by group</span>
+		<input type="checkbox" id="rated-7-9" checked><label for="rated-7-9" tabindex="0"><span class="keys"><span class="color-key rated-7"></span><span class="color-key rated-8"></span><span class="color-key rated-9"></span></span><span class="label">&nbsp; High (7-9)</span></label>
+
+		<input type="checkbox" id="rated-4-6" checked><label for="rated-4-6" tabindex="0"><span class="keys"><span class="color-key rated-4"></span><span class="color-key rated-5"></span><span class="color-key rated-6"></span></span><span class="label">&nbsp; Middle (4-6)</span></label>
+
+		<input type="checkbox" id="rated-1-3" checked><label for="rated-1-3" tabindex="0"><span class="keys"><span class="color-key rated-1"></span><span class="color-key rated-2"></span><span class="color-key rated-3"></span></span><span class="label">&nbsp; Low (1-3)</span></label>
+	</nav>
+
+	<nav id="demo" class="filter-group">
+		<div>
+			<h6>Racial Demographics</h6>
+		</div>
+		<div>
+			<span>% White</span>
+			<div style="background-color:#ccc"><div id="gradient"></div></div>
+			<span class="left"></span>
+			<span class="right"></span>
+		</div>
+	</nav>
+<script>
+	// config
+	const data_census	= 'data/boston-somerville.geojson';
+	const data_schools	= 'data/boston-somerville-ratings.geojson';
+	const coords		= [-71.05, 42.32];
+	const rating_prop	= 'gs_ratings';
+	const map_padding	= 90;
+	const map_offset	= [-30,0];
+</script>
+<script src="assets/gs-mapbox-print.js"></script>
+
+</body>
+</html>
