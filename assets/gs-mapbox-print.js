@@ -5,7 +5,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW90aGVyam9uZXMiLCJhIjoiY2p2emw3Nzc4MDFpZTQzc
 let map = new mapboxgl.Map({
 	container: 'map', // container id
 	//style: 'mapbox://styles/motherjones/cke841yfj4pay19jv8ija86ms', // mapbox studio
-	style: 'mapbox://styles/motherjones/ckenbuou834dq19rruozdmdlp',
+	style: 'mapbox://styles/motherjones/ckexs8j9720ey19o8une30lng',
 	center: coords, // starting position [lng, lat]
 	minZoom: 10.5,
 	maxZoom: 16
