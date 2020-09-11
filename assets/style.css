@@ -90,31 +90,31 @@ body { margin: 0; padding: 0; }
 	border:1px solid #000;
 }
 .rated-9 {
-	background-color:#022951;
+	background-color:#291d54;
 }
 .rated-8 {
-	background-color:#2f4375;
+	background-color:#392f88;
 }
 .rated-7 {
-	background-color:#325390;
+	background-color:#4036a6;
 }
 .rated-6 {
-	background-color:#516aa8;
+	background-color:#4143bc;
 }
 .rated-5 {
-	background-color:#5a80aa;
+	background-color:#5668d0;
 }
 .rated-4 {
-	background-color:#8397ca;
+	background-color:#6973c6;
 }
 .rated-3 {
-	background-color:#96b1d4;
+	background-color:#7e8be2;
 }
 .rated-2 {
-	background-color:#d8d2e5;
+	background-color:#9798e4;
 }
 .rated-1 {
-	background-color:#fff;
+	background-color:#cccdff;
 }
 .mapboxgl-popup-content h2 {
 	margin:.333rem 0 .5rem 0;
